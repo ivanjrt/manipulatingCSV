@@ -44,5 +44,11 @@ final output example: </br>
 ![image](https://user-images.githubusercontent.com/44326428/123571903-d2648e80-d790-11eb-9ba1-6013a80b6f64.png)
 
 
-
+wip:<adding a timing preview before overwriting the new file>
+   ``` javascript
+   $FinalChange 
+sleep -Seconds 3
+Write-Output -Verbose "The changes will be made like so..."
+   ```
+   
 
