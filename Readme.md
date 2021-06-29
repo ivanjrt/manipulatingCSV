@@ -1,6 +1,5 @@
-Sample of a CSV before changes:
-
-![image](https://user-images.githubusercontent.com/44326428/123570561-15713280-d78e-11eb-8053-4ab5d6cac7b8.png) </br>
+Sample of a CSV before changes:</br>
+![image](https://user-images.githubusercontent.com/44326428/123723640-74977b80-d850-11eb-9288-6bacc3319846.png)</br>
 
 
 The script below will change:
@@ -12,6 +11,7 @@ The script below will change:
 
 
 ```Ruby
+Clear-Host
 $FinalChange   = $null ;   $modification =$null
 $names         = Import-Csv -Path C:\temp\names.csv
 $FinalChange   = @()
@@ -21,6 +21,7 @@ class newTable{
     [string]$name
     [string]$Language
     [string]$dob
+    [string]$NickName
     [string]$convention
 }
 
@@ -29,26 +30,24 @@ foreach($name in $names){
     $modification.name       = $name.Name
     $modification.Language   = $name.Language
     $modification.dob        = '1981'
+    $modification.NickName   = $name.NickName
 
-    $namingStartW = $name.conventionMonthName.Substring(0,3)
-    $namingEndW   = $name.conventionMonthName.Substring(5,5)
+    $namingStartW = $name.convention.Substring(0,3)
+    $namingEndW   = $name.convention.Substring(5,5)
     $modification.convention = $namingStartW + $month + $namingEndW
 
     $FinalChange += $modification
 }
+
+$FinalChange | FT -AutoSize
+Write-Host "The changes will be made like so:"
+Write-Host "Press any key to continue..."
+PAUSE
+#Start-Sleep -Seconds 3
+
 $FinalChange | Export-Csv C:\temp\names.csv -NoTypeInformation
 ```
 
 Once done, the new object will take over the old csv file with the new edits.</br>
 final output example: </br>
-![image](https://user-images.githubusercontent.com/44326428/123571903-d2648e80-d790-11eb-9ba1-6013a80b6f64.png)
-
-
-wip:<adding a timing preview before overwriting the new file>
-   ``` javascript
-   $FinalChange 
-sleep -Seconds 3
-Write-Output -Verbose "The changes will be made like so..."
-   ```
-   
-
+![image](https://user-images.githubusercontent.com/44326428/123725220-5c752b80-d853-11eb-9871-6389f76b9514.png)
